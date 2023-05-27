@@ -20,7 +20,27 @@ int main()
 		cout << endl;
 	}
 
-	int index = 25;
+	int index = 0;
+
+	try
+	{
+		cout << drives[index].Name << endl;
+	}
+	catch (exception& exc)
+	{
+		cout << exc.what() << endl;
+	}
+
+	try
+	{
+		cout << drives.At(index).Name << endl;
+	}
+	catch (exception& exc)
+	{
+		cout << exc.what() << endl;
+	}
+
+	index = 25;
 
 	try
 	{
