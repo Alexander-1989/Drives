@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <Windows.h>
 #include "Drives.h"
@@ -15,9 +16,10 @@ Drives::~Drives()
 	}
 }
 
-double Drives::_round(const double& value)
+double Drives::_round(double value, int precision)
 {
-	return floor(value * 100) / 100;
+	int decimal = (int)std::pow(10, precision);
+	return floor(value * decimal) / decimal;
 }
 
 inline void Drives::_error(const char* message)
@@ -98,9 +100,9 @@ void Drives::_initialyze()
 
 			if (GetDiskFreeSpaceExA(name, 0, (PULARGE_INTEGER)&total, (PULARGE_INTEGER)&free))
 			{
-				_drives[j].TotalSpace = _round(total / std::pow(1024, 3));
-				_drives[j].FreeSpace = _round(free / std::pow(1024, 3));
-				_drives[j].UsedSpace = _round((total - free) / std::pow(1024, 3));
+				_drives[j].TotalSpace = _round(total / std::pow(1024, 3), 2);
+				_drives[j].FreeSpace = _round(free / std::pow(1024, 3), 2);
+				_drives[j].UsedSpace = _round((total - free) / std::pow(1024, 3), 2);
 			}
 		}
 	}

@@ -1,3 +1,4 @@
+#pragma once
 #include "DriveInfo.h"
 
 class Drives
@@ -10,7 +11,7 @@ public:
 	int Size();
 
 private:
-	double _round(const double&);
+	double _round(double, int);
 	DriveInfo* _drives;
 	int _size;
 	void _error(const char*);
