@@ -7,5 +7,5 @@ struct DriveInfo
 	double TotalSpace = 0;
 	double UsedSpace = 0;
 	double FreeSpace = 0;
-	bool IsReady = 0;
+	bool IsReady = false;
 };
