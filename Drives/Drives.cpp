@@ -25,7 +25,6 @@ inline void Drives::_error(const char* message)
 	throw std::runtime_error(message);
 }
 
-
 DriveInfo Drives::operator[](int index)
 {
 	if (index < 0 || index >= _size)
@@ -81,7 +80,7 @@ void Drives::_initialyze()
 		UINT oldErrorMode = SetErrorMode(SEM_FAILCRITICALERRORS);
 		name[0] = buffer[j];
 		type = GetDriveType(name);
-		_drives[j].IsReady = GetFileAttributes(name) != INVALID_FILE_ATTRIBUTES;
+		_drives[j].IsReady = GetFileAttributesA(name) != INVALID_FILE_ATTRIBUTES;
 		SetErrorMode(oldErrorMode);
 
 		strcpy_s(_drives[j].Name, name);
@@ -91,17 +90,17 @@ void Drives::_initialyze()
 
 		if (type == DRIVE_REMOVABLE || type == DRIVE_FIXED || type == DRIVE_REMOTE)
 		{
-			if (GetVolumeInformation(name, label, sizeof(label), 0, 0, 0, fileSystem, sizeof(fileSystem)))
+			if (GetVolumeInformationA(name, label, sizeof(label), 0, 0, 0, fileSystem, sizeof(fileSystem)))
 			{
 				strcpy_s(_drives[j].Label, label);
 				strcpy_s(_drives[j].FileSystem, fileSystem);
 			}
 
-			if (GetDiskFreeSpaceEx(name, 0, (PULARGE_INTEGER)&total, (PULARGE_INTEGER)&free))
+			if (GetDiskFreeSpaceExA(name, 0, (PULARGE_INTEGER)&total, (PULARGE_INTEGER)&free))
 			{
 				_drives[j].TotalSpace = _round(total / std::pow(1024, 3));
 				_drives[j].FreeSpace = _round(free / std::pow(1024, 3));
-				_drives[j].UsedSpace = _drives[j].TotalSpace - _drives[j].FreeSpace;
+				_drives[j].UsedSpace = _round((total - free) / std::pow(1024, 3));
 			}
 		}
 	}

@@ -13,10 +13,10 @@ int main()
 		cout << "Label: " << drives[i].Label << endl;
 		cout << "File System: " << drives[i].FileSystem << endl;
 		cout << "Type: " << drives[i].Type << endl;
-		cout << "Ready: " << drives[i].IsReady << endl;
-		cout << "Used Space: " << drives[i].UsedSpace << endl;
-		cout << "Free Space: " << drives[i].FreeSpace << endl;
-		cout << "Total Space: " << drives[i].TotalSpace << endl;
+		cout << "Ready: " << (drives[i].IsReady ? "True" : "False") << endl;
+		cout << "Used Space: " << drives[i].UsedSpace << " Gb" << endl;
+		cout << "Free Space: " << drives[i].FreeSpace << " Gb" << endl;
+		cout << "Total Space: " << drives[i].TotalSpace << " Gb" << endl;
 		cout << endl;
 	}
 
