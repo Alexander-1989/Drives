@@ -53,9 +53,7 @@ void Drives::_initialyze()
 	UINT64 free = 0;
 	DWORD dr = GetLogicalDrives();
 	char buffer[26]{};
-	char label[32]{};
-	char fileSystem[12]{};
-	char name[5] = "*:\\";
+	char name[4] = "*:\\";
 	const char* driveTypes[] =
 	{
 		"Unknown",
@@ -79,11 +77,9 @@ void Drives::_initialyze()
 
 	for (int j = 0; j < _size; j++)
 	{
-		UINT oldErrorMode = SetErrorMode(SEM_FAILCRITICALERRORS);
 		name[0] = buffer[j];
-		type = GetDriveType(name);
+		type = GetDriveTypeA(name);
 		_drives[j].IsReady = GetFileAttributesA(name) != INVALID_FILE_ATTRIBUTES;
-		SetErrorMode(oldErrorMode);
 
 		strcpy_s(_drives[j].Name, name);
 		strcpy_s(_drives[j].Type, driveTypes[type]);
@@ -92,11 +88,7 @@ void Drives::_initialyze()
 
 		if (type == DRIVE_REMOVABLE || type == DRIVE_FIXED || type == DRIVE_REMOTE)
 		{
-			if (GetVolumeInformationA(name, label, sizeof(label), 0, 0, 0, fileSystem, sizeof(fileSystem)))
-			{
-				strcpy_s(_drives[j].Label, label);
-				strcpy_s(_drives[j].FileSystem, fileSystem);
-			}
+			GetVolumeInformationA(name, _drives[j].Label, sizeof(_drives[j].Label), &_drives[j].SerialNumber, 0, 0, _drives[j].FileSystem, sizeof(_drives[j].FileSystem));
 
 			if (GetDiskFreeSpaceExA(name, 0, (PULARGE_INTEGER)&total, (PULARGE_INTEGER)&free))
 			{

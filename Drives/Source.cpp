@@ -6,58 +6,26 @@ using namespace std;
 int main()
 {
 	Drives drives;
-	
-	for (int i = 0; i < drives.Size(); i++)
-	{
-		cout << "Name: " << drives[i].Name << endl;
-		cout << "Label: " << drives[i].Label << endl;
-		cout << "File System: " << drives[i].FileSystem << endl;
-		cout << "Type: " << drives[i].Type << endl;
-		cout << "Ready: " << (drives[i].IsReady ? "True" : "False") << endl;
-		cout << "Used Space: " << drives[i].UsedSpace << " Gb" << endl;
-		cout << "Free Space: " << drives[i].FreeSpace << " Gb" << endl;
-		cout << "Total Space: " << drives[i].TotalSpace << " Gb" << endl;
-		cout << endl;
-	}
 
-	int index = 0;
-
-	try
+	for (int i = 0; i <= drives.Size(); i++)
 	{
-		cout << drives[index].Name << endl;
-	}
-	catch (exception& exc)
-	{
-		cout << exc.what() << endl;
-	}
-
-	try
-	{
-		cout << drives.At(index).Name << endl;
-	}
-	catch (exception& exc)
-	{
-		cout << exc.what() << endl;
-	}
-
-	index = 25;
-
-	try
-	{
-		cout << drives[index].Name << endl;
-	}
-	catch (exception& exc)
-	{
-		cout << exc.what() << endl;
-	}
-
-	try
-	{
-		cout << drives.At(index).Name << endl;
-	}
-	catch (exception& exc)
-	{
-		cout << exc.what() << endl;
+		try
+		{
+			cout << "Name: " << drives[i].Name << endl;
+			cout << "Label: " << drives[i].Label << endl;
+			cout << "File System: " << drives[i].FileSystem << endl;
+			cout << "Serial Number: " << drives[i].SerialNumber << endl;
+			cout << "Type: " << drives[i].Type << endl;
+			cout << "Ready: " << (drives[i].IsReady ? "True" : "False") << endl;
+			cout << "Used Space: " << drives[i].UsedSpace << " Gb" << endl;
+			cout << "Free Space: " << drives[i].FreeSpace << " Gb" << endl;
+			cout << "Total Space: " << drives[i].TotalSpace << " Gb" << endl;
+			cout << endl;
+		}
+		catch (const std::exception& exc)
+		{
+			cout << exc.what() << endl;
+		}
 	}
 
 	(void)_getch();
