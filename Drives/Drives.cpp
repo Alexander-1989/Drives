@@ -89,7 +89,10 @@ void Drives::_initialyze()
 		if (type == DRIVE_REMOVABLE || type == DRIVE_FIXED || type == DRIVE_REMOTE)
 		{
 			GetVolumeInformationA(name, _drives[j].Label, sizeof(_drives[j].Label), &_drives[j].SerialNumber, 0, 0, _drives[j].FileSystem, sizeof(_drives[j].FileSystem));
+		}
 
+		if (_drives[j].IsReady)
+		{
 			if (GetDiskFreeSpaceExA(name, 0, (PULARGE_INTEGER)&total, (PULARGE_INTEGER)&free))
 			{
 				_drives[j].TotalSpace = _round(total / std::pow(1024, 3), 2);
